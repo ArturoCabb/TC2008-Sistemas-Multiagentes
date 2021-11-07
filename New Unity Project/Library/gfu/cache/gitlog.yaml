@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &1
+MonoBehaviour:
+  m_ObjectHideFlags: 61
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -530159753, guid: 68c7e4565cde54155bb78d8e935f1ddb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cacheType: 3
+  lastUpdatedAtString: 2021-11-07T12:32:11.761-06:00
+  initializedAtString: 2021-11-07T12:32:11.761-06:00
+  log:
+  - commitID: 5dcbfa141f41a70ddae93bf87f76296613c342fc
+    mergeA: 
+    mergeB: 
+    authorName: Arturo Caballero
+    authorEmail: 43755995+ArturoCabb@users.noreply.github.com
+    commitEmail: noreply@github.com
+    commitName: GitHub
+    summary: Initial commit
+    description: 
+    timeString: 2021-11-07T11:55:38.000-06:00
+    commitTimeString: 2021-11-07T11:55:38.000-06:00
+    changes:
+    - path: .gitignore
+      fullPath: C:\Users\artur\UnityProjects\TC2008-Sistemas-Multiagentes\.gitignore
+      projectPath: ..\.gitignore
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: README.md
+      fullPath: C:\Users\artur\UnityProjects\TC2008-Sistemas-Multiagentes\README.md
+      projectPath: ..\README.md
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
