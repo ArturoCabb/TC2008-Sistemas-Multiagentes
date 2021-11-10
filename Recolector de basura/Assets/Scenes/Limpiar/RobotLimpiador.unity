@@ -331,10 +331,10 @@ MonoBehaviour:
   block: {fileID: 3270556236098371860, guid: 02dd4949af6d9584a823017be5d0336c, type: 3}
   basura: {fileID: 1140431388787086498, guid: 04f05b5ecbcaa48488bddf1749f9a186, type: 3}
   robot: {fileID: 5655298248915591138, guid: 57d06154efcf57f4ea35fcdecf136603, type: 3}
-  nRobots: 5
-  ancho: 10
+  nRobots: 10
+  ancho: 20
   largo: 20
-  celdasSucias: 20
+  celdasSucias: 30
 --- !u!4 &2137336638
 Transform:
   m_ObjectHideFlags: 0
