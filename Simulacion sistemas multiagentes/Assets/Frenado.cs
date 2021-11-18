@@ -33,8 +33,8 @@ public class Frenado : MonoBehaviour
         bool bandera = true;
         for (int i = 0; i < miCiudad.listadoCarros.Length; i++){
             if (numeroSerie != i){
-                float x = (transform.position.x - miCiudad.listadoCarros[i].transform.position.x);
-                float z = (transform.position.z - miCiudad.listadoCarros[i].transform.position.z);
+                float x = (transform.position.x + (distanciaFaltante.x * 0.001f) - miCiudad.listadoCarros[i].transform.position.x);
+                float z = (transform.position.z + (distanciaFaltante.z * 0.001f) - miCiudad.listadoCarros[i].transform.position.z);
                 double distanciaEuclidiana = Math.Sqrt((x*x)+(z*z));
                 //Debug.Log("Distancia Euclidiana: " + distanciaEuclidiana);
 
