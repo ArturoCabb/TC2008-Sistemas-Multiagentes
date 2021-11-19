@@ -82,7 +82,7 @@ public class CiudadPruebas : MonoBehaviour
 
     }
 
-    void AgregarWaypoints(float x, float y, float z, bool Arriba, bool Izquierda){
+    void AgregarWaypoints(float x, float y, float z, string orientacion, bool arriba, bool abajo, bool izquierda, bool derecha){
         
         int aux = nIntersecciones * 4;
         for (int i = 0; i < 4; i++){
@@ -97,20 +97,106 @@ public class CiudadPruebas : MonoBehaviour
         nIntersecciones++;
 
         aux = 0;
-        if (Arriba){
-            posibilidades[indices[1], aux] = indices[0];
-            posibilidades[indices[2], aux] = indices[0];
-            tipoRecorrido[indices[1], aux] = 1;
-            tipoRecorrido[indices[2], aux] = 0;
-            aux++;
+        if (orientacion == "derechaArriba")
+        {
+            if (arriba)
+            {
+                posibilidades[indices[2], aux] = indices[0];
+                posibilidades[indices[3], aux] = indices[0];
+                tipoRecorrido[indices[2], aux] = 0;
+                tipoRecorrido[indices[3], aux] = 6;
+                aux++;
+            }
+            if (derecha)
+            {
+                posibilidades[indices[2], aux] = indices[1];
+                posibilidades[indices[3], aux] = indices[1];
+                tipoRecorrido[indices[2], aux] = 4;
+                tipoRecorrido[indices[3], aux] = 0;
+                aux++;
+            }
+
         }
-        if (Izquierda){
-            posibilidades[indices[1], aux] = indices[3];
-            posibilidades[indices[2], aux] = indices[3];
-            tipoRecorrido[indices[1], aux] = 0;
-            tipoRecorrido[indices[2], aux] = 2;
-            aux++;
+        else if (orientacion == "derechaAbajo")
+        {
+            if (abajo)
+            {
+                posibilidades[indices[0], aux] = indices[2];
+                posibilidades[indices[3], aux] = indices[2];
+                tipoRecorrido[indices[0], aux] = 0;
+                tipoRecorrido[indices[3], aux] = 1;
+                aux++;
+            }
+            if (derecha)
+            {
+                posibilidades[indices[0], aux] = indices[1];
+                posibilidades[indices[3], aux] = indices[1];
+                tipoRecorrido[indices[0], aux] = 7;
+                tipoRecorrido[indices[3], aux] = 0;
+                aux++;
+            }
+
+
         }
+        else if (orientacion == "izquierdaArriba")
+        {
+            posibilidades[indices[1], 0] = indices[0];
+            posibilidades[indices[1], 1] = indices[3];
+            posibilidades[indices[2], 0] = indices[0];
+            posibilidades[indices[2], 1] = indices[3];
+
+            tipoRecorrido[indices[1], 0] = 3;
+            tipoRecorrido[indices[1], 1] = 0;
+            tipoRecorrido[indices[2], 0] = 0;
+            tipoRecorrido[indices[2], 1] = 5;
+            if (arriba)
+            {
+                posibilidades[indices[1], aux] = indices[0];
+                posibilidades[indices[2], aux] = indices[0];
+                tipoRecorrido[indices[1], aux] = 3;
+                tipoRecorrido[indices[2], aux] = 0;
+                aux++;
+            }
+            if (izquierda)
+            {
+                posibilidades[indices[1], aux] = indices[3];
+                posibilidades[indices[2], aux] = indices[3];
+                tipoRecorrido[indices[1], aux] = 0;
+                tipoRecorrido[indices[2], aux] = 5;
+                aux++;
+            }
+
+
+        }
+        else if (orientacion == "izquierdaAbajo")
+        {
+            posibilidades[indices[0], 0] = indices[2];
+            posibilidades[indices[0], 1] = indices[3];
+            posibilidades[indices[1], 0] = indices[2];
+            posibilidades[indices[1], 1] = indices[3];
+
+            tipoRecorrido[indices[0], 0] = 0;
+            tipoRecorrido[indices[0], 1] = 2;
+            tipoRecorrido[indices[1], 0] = 8;
+            tipoRecorrido[indices[1], 1] = 0;
+
+        }
+
+        //aux = 0;
+        //if (Arriba){
+        //    posibilidades[indices[1], aux] = indices[0];
+        //    posibilidades[indices[2], aux] = indices[0];
+        //    tipoRecorrido[indices[1], aux] = 1;
+        //    tipoRecorrido[indices[2], aux] = 0;
+        //    aux++;
+        //}
+        //if (Izquierda){
+        //    posibilidades[indices[1], aux] = indices[3];
+        //    posibilidades[indices[2], aux] = indices[3];
+        //    tipoRecorrido[indices[1], aux] = 0;
+        //    tipoRecorrido[indices[2], aux] = 2;
+        //    aux++;
+        //}
 
         nPosibilidades[indices[0]] = 0;
         nPosibilidades[indices[1]] = aux;

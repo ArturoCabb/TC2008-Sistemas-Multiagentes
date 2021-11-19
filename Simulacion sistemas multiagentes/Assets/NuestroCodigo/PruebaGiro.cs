@@ -31,14 +31,43 @@ public class PruebaGiro : MonoBehaviour
         */
         // 1. ¿Cómo traslado el triángulo 3.2 unidades a la derecha y 2.4 unidades abajo?
 
-        /*
+        /* Estos hacen giro al sentido contrario de las manecillas del reloj
+         * Abajo a la izquierda*/
         Matrix4x4 transform2 = Transformations.RotateM(-angle, Transformations.AXIS.AX_Y);
         Matrix4x4 transform1 = Transformations.TranslateM(5f, 0.0f, 0.0f);
         Matrix4x4 transform3 = Transformations.TranslateM(-5f, 0.0f, 0.0f);
-        */
+        /* arriba izquierda
+        Matrix4x4 transform2 = Transformations.RotateM(-angle - 90, Transformations.AXIS.AX_Y);
+        Matrix4x4 transform1 = Transformations.TranslateM(5f, 0.0f, 0.0f);
+        Matrix4x4 transform3 = Transformations.TranslateM(0f, 0.0f, -5.0f);
+        * izquierda abajo
+        Matrix4x4 transform2 = Transformations.RotateM(-angle - 180, Transformations.AXIS.AX_Y);
+        Matrix4x4 transform1 = Transformations.TranslateM(5f, 0.0f, 0.0f);
+        Matrix4x4 transform3 = Transformations.TranslateM(5.0f, 0.0f, 0.0f);
+        * abajo derecha
+        Matrix4x4 transform2 = Transformations.RotateM(-angle - 270, Transformations.AXIS.AX_Y);
+        Matrix4x4 transform1 = Transformations.TranslateM(5f, 0.0f, 0.0f);
+        Matrix4x4 transform3 = Transformations.TranslateM(0.0f, 0.0f, 5.0f);
+        
+        
+        /* Hacen giro en sentido de las manecillas del reloj
+        * Arriba derecha
         Matrix4x4 transform2 = Transformations.RotateM(angle + 90, Transformations.AXIS.AX_Y);
         Matrix4x4 transform1 = Transformations.TranslateM(5f, 0.0f, 0.0f);
         Matrix4x4 transform3 = Transformations.TranslateM(0f, 0.0f, 5.0f);
+        * Abajo derecha
+        Matrix4x4 transform2 = Transformations.RotateM(angle + 180, Transformations.AXIS.AX_Y);
+        Matrix4x4 transform1 = Transformations.TranslateM(5f, 0.0f, 0.0f);
+        Matrix4x4 transform3 = Transformations.TranslateM(5.0f, 0.0f, 0.0f);
+        * izquierda arriba
+        Matrix4x4 transform2 = Transformations.RotateM(angle + 270, Transformations.AXIS.AX_Y);
+        Matrix4x4 transform1 = Transformations.TranslateM(5f, 0.0f, 0.0f);
+        Matrix4x4 transform3 = Transformations.TranslateM(0.0f, 0.0f, -5.0f);
+        * arriba
+        Matrix4x4 transform2 = Transformations.RotateM(angle, Transformations.AXIS.AX_Y);
+        Matrix4x4 transform1 = Transformations.TranslateM(5f, 0.0f, 0.0f);
+        Matrix4x4 transform3 = Transformations.TranslateM(-5.0f, 0.0f, 0.0f);
+        
         /*
         Vector4 temp1 = new Vector4(points[0].x, points[0].y, points[0].z, 1);
         Vector4 temp2 = new Vector4(points[1].x, points[1].y, points[1].z, 1);
