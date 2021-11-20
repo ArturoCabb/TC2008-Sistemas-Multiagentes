@@ -7,11 +7,11 @@ public class PruebaGiro : MonoBehaviour
     Vector3[] points; // Geometry
     int[] tris;       // Topology
     float angle = 0;
-    float x = 0;
-    float z = 0;
+    //Vector3 posInicio;
 
     void TransformCar()
-    {
+    {   
+        
         int n = points.Length;
         int i;
         Vector4[] vs = new Vector4[n];
@@ -21,6 +21,13 @@ public class PruebaGiro : MonoBehaviour
             vs[i] = points[i];
             vs[i].w = 1.0f;
         }
+        
+        /*
+        Vector4 auxi = posInicio;
+        auxi.w = 1.0f;
+        Vector3 final;
+        */
+
         /*
         Vector4 v0 = points[0];
         Vector4 v1 = points[1];
@@ -34,8 +41,9 @@ public class PruebaGiro : MonoBehaviour
         /* Estos hacen giro al sentido contrario de las manecillas del reloj
          * Abajo a la izquierda*/
         Matrix4x4 transform2 = Transformations.RotateM(-angle, Transformations.AXIS.AX_Y);
-        Matrix4x4 transform1 = Transformations.TranslateM(5f, 0.0f, 0.0f);
-        Matrix4x4 transform3 = Transformations.TranslateM(-5f, 0.0f, 0.0f);
+        Matrix4x4 transform1 = Transformations.TranslateM(2.5f, 0.0f, 0.0f);
+        Matrix4x4 transform3 = Transformations.TranslateM(-2.5f, 0.0f, 0.0f);
+        //Matrix4x4 transform4 = Transformations.TranslateM(10, 0.0f, 10);
         /* arriba izquierda
         Matrix4x4 transform2 = Transformations.RotateM(-angle - 90, Transformations.AXIS.AX_Y);
         Matrix4x4 transform1 = Transformations.TranslateM(5f, 0.0f, 0.0f);
@@ -78,11 +86,17 @@ public class PruebaGiro : MonoBehaviour
         v2 = transform1 * transform2 * temp3;
         */
         //Matrix4x4 A = transform1 * transform2;
+
+        
         for (i = 0; i < n; i++)
         {
             vs[i] = transform3 * transform2 * transform1 * vs[i];
             final[i] = vs[i];
         }
+        
+
+        //auxi = transform3 * transform2 * transform1 * auxi;
+        //final = auxi;
         /*
         v0 = A * v0;
         v1 = A * v1;
@@ -90,7 +104,10 @@ public class PruebaGiro : MonoBehaviour
         */
         //Vector3[] points2 = { v0, v1, v2 };
 
+        
         GetComponent<MeshFilter>().mesh.vertices = final;
+        
+        //transform.position = final;
 
     }
 
@@ -99,10 +116,12 @@ public class PruebaGiro : MonoBehaviour
     void Start()
     {
         angle = 0;
-        
+        transform.position = new Vector3(10,0,10);
         Mesh mesh = GetComponent<MeshFilter>().mesh;
         // Geometry
         points = mesh.vertices;
+
+        //posInicio = transform.position;
     }
 
     // Update is called once per frame
@@ -112,13 +131,6 @@ public class PruebaGiro : MonoBehaviour
         if (angle > 90)
             angle = 0.0f;
 
-        x += 0.1f;
-        if (x > 9)
-            x = 0.0f;
-
-        z += 0.0f;
-        if (z > 10)
-            z = 0.0f;
         TransformCar();
     }
 }
