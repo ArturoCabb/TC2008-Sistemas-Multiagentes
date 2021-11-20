@@ -9,6 +9,7 @@ public class CarroPruebas : MonoBehaviour
     private int waypointDestino;
     private Vector3 posicionInicio;
     private Vector3 posicionDestino;
+    public Vector3 posicionActual;
     private Vector3 distanciaFaltante;
     private float velocidad = 0.06f;
     private float tamaPaso;
@@ -18,13 +19,18 @@ public class CarroPruebas : MonoBehaviour
     private Vector3[] points;
     public int numeroSerie;
     public Vector3 vectorDireccionUnitario;
+    public bool parado = false;
+    public int waypointActual;
+
     // Start is called before the first frame update
     void Start()
     {
         miCiudad = FindObjectOfType<CiudadPruebas>();
         waypointDestino = 38;
         posicionInicio = transform.position;
+        posicionActual = posicionInicio;
         posicionDestino = miCiudad.waypoints[waypointDestino];
+        waypointActual = 36;
         distanciaFaltante = posicionDestino - posicionInicio;
         t = 0;
         CalcularTamaPaso();
@@ -39,99 +45,73 @@ public class CarroPruebas : MonoBehaviour
         float distanciaDestino = (float) Math.Sqrt((x*x)+(z*z));
         float tiempo = distanciaDestino / velocidad;
 
-        tamaPaso = 1 / tiempo;
-        vectorDireccionUnitario = distanciaFaltante * tamaPaso;
+        if (tipoAvance == 0){
+            tamaPaso = 1 / tiempo;
+            vectorDireccionUnitario = distanciaFaltante * tamaPaso;
+        }
+        else{
+            vectorDireccionUnitario = distanciaFaltante * 0.0111f;
+        }
 
     }
 
     void Avanzar(){
-
-        bool bandera = true;
-        for(int i = 0; i < miCiudad.nCarros; i++){
-            if (miCiudad.matrizEuclidiana[numeroSerie, i] == false){
-                bandera = false;
-                //Debug.Log(numeroSerie);
-                //Debug.Log(i);
-                break;
+        
+        if (parado){
+            if(miCiudad.estados[waypointActual] == 0){
+                parado = false;
             }
         }
 
-        if (bandera){
-            if (tipoAvance == 0){
-                if (t <= 1){
-                    transform.position = posicionInicio + (distanciaFaltante * t);
-                    t += tamaPaso;
-                }
-                else{
-                    t = 0;
-                    CalcularPosiciones();
-                    CalcularTamaPaso();
+        if (!parado){
+            bool bandera = true;
+            for(int i = 0; i < miCiudad.nCarros; i++){
+                if (miCiudad.matrizEuclidiana[numeroSerie, i] == false){
+                    bandera = false;
+                    break;
                 }
             }
-            else{
-                if (angle <= 90){
-                    Girar();
-                    angle += 1;
+
+            if (bandera){
+                if (tipoAvance == 0){
+                    if (t <= 1){
+                        transform.position = posicionInicio + (distanciaFaltante * t);
+                        posicionActual = transform.position;
+                        t += tamaPaso;
+                    }
+                    else{
+                        t = 0;
+                        CalcularPosiciones();
+                        if (miCiudad.estados[waypointActual] != 0){
+                            parado = true;
+                        }
+                        CalcularTamaPaso();
+                    }
                 }
                 else{
-                    angle = 0;
+                    if (angle <= 90){
+                        Girar();
+                        posicionActual = posicionInicio + (vectorDireccionUnitario * angle);
+                        angle += 1;
+                    }
+                    else{
+                        angle = 0;
 
-                    ReacomodarVertices(tipoAvance);
-                    CalcularPosiciones();
-                    CalcularTamaPaso();
+                        ReacomodarVertices(tipoAvance);
+                        CalcularPosiciones();
+                        if (miCiudad.estados[waypointActual] != 0){
+                            parado = true;
+                        }
+                        CalcularTamaPaso();
+                    }
                 }
             }
         }
+
+        
     }
 
     void ReacomodarVertices(int tipoGiro){
-
-        Matrix4x4 A;
-        //Matrix4x4 A = CiudadPruebas.tipoGiro1(tipoAvance);
-
-        /*
-        if (tipoGiro == 1){
-            A = Transformations.TranslateM(0f, 0.0f, -90);
-        }
-        else if(tipoGiro == 2){
-            A = Transformations.TranslateM(-90, 0.0f, 0.0f);
-        }
-        else if(tipoGiro == 3){
-            A = Transformations.TranslateM(0.0f, 0.0f, 90);
-        }
-        else if(tipoGiro == 4){
-            A = Transformations.TranslateM(90, 0.0f, 0.0f);
-        }
-        else if(tipoGiro == 5){
-            A = Transformations.TranslateM(-90, 0.0f, 0.0f);
-        }
-        else if(tipoGiro == 6){
-            A = Transformations.TranslateM(0f, 0.0f, 90);
-        }
-        else if(tipoGiro == 7){
-            A = Transformations.TranslateM(90, 0.0f, 0.0f);
-        }
-        else{
-            A = Transformations.TranslateM(0f, 0.0f, -90);
-        }
-        
-
-        int n = points.Length;
-        Vector4[] vs = new Vector4[n];
-        Vector3[] final = new Vector3[n];
-
-        for(int i = 0; i < n; i++)
-        {
-            vs[i] = points[i];
-            vs[i].w = 1.0f;
-        }
-
-        for (int i = 0; i < n; i++)
-        {
-            vs[i] = A * vs[i];
-            final[i] = vs[i];
-        }
-        */
 
         GetComponent<MeshFilter>().mesh.vertices = points;
 
@@ -140,9 +120,11 @@ public class CarroPruebas : MonoBehaviour
     void CalcularPosiciones(){
         int numeroAleatorio = UnityEngine.Random.Range(0, miCiudad.nPosibilidades[waypointDestino]);
         tipoAvance = miCiudad.tipoRecorrido[waypointDestino, numeroAleatorio];
+        waypointActual = waypointDestino;
         waypointDestino = miCiudad.posibilidades[waypointDestino, numeroAleatorio];
         posicionInicio = posicionDestino;
         transform.position = posicionDestino;
+        posicionActual = posicionDestino;
         posicionDestino = miCiudad.waypoints[waypointDestino];
         distanciaFaltante = posicionDestino - posicionInicio;
         if (tipoAvance != 0){

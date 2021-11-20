@@ -19,7 +19,11 @@ public class CiudadPruebas : MonoBehaviour
     private GameObject[] misObjetos;
     public int nCarros = 4;
     public bool[,] matrizEuclidiana;
-    private float distanciaMinima = 0;
+    private float distanciaMinima = 2;
+    public int[] estados;
+    public int[,] paresdeSemaforos;
+    private float timer;
+    private bool auxSemaforo = false;
 
     // Start is called before the first frame update
     void Start()
@@ -28,6 +32,7 @@ public class CiudadPruebas : MonoBehaviour
         indices = new int[4];
         radio = 2.5f;
         posicionY = 0;
+        timer = 0f;
 
         nIntersecciones = 0;
         waypoints = new Vector3[48];
@@ -36,6 +41,13 @@ public class CiudadPruebas : MonoBehaviour
 
         matricesGiro = new Matrix4x4[9, 91];
         llenarMatrices();
+
+        paresdeSemaforos = new int[12,2];
+        estados = new int[48];
+
+        for ( int i = 0; i < 48; i++){
+            estados[i] = 0;
+        }
 
         for (int i = 0; i < 48; i++){
             posibilidades[i, 0] = -1;
@@ -91,6 +103,9 @@ public class CiudadPruebas : MonoBehaviour
                 aux++;
             }
 
+            estados[indices[3]] = 2;
+            paresdeSemaforos[nIntersecciones, 0] = indices[2];
+            paresdeSemaforos[nIntersecciones, 1] = indices[3];
             nPosibilidades[indices[0]] = 0;
             nPosibilidades[indices[1]] = 0;
             nPosibilidades[indices[2]] = aux;
@@ -116,6 +131,9 @@ public class CiudadPruebas : MonoBehaviour
                 aux++;
             }
 
+            estados[indices[3]] = 2;
+            paresdeSemaforos[nIntersecciones, 0] = indices[0];
+            paresdeSemaforos[nIntersecciones, 1] = indices[3];
             nPosibilidades[indices[0]] = aux;
             nPosibilidades[indices[1]] = 0;
             nPosibilidades[indices[2]] = 0;
@@ -140,6 +158,9 @@ public class CiudadPruebas : MonoBehaviour
                 aux++;
             }
 
+            estados[indices[2]] = 2;
+            paresdeSemaforos[nIntersecciones, 0] = indices[1];
+            paresdeSemaforos[nIntersecciones, 1] = indices[2];
             nPosibilidades[indices[0]] = 0;
             nPosibilidades[indices[1]] = aux;
             nPosibilidades[indices[2]] = aux;
@@ -166,6 +187,9 @@ public class CiudadPruebas : MonoBehaviour
                 aux++;
             }
 
+            estados[indices[1]] = 2;
+            paresdeSemaforos[nIntersecciones, 0] = indices[0];
+            paresdeSemaforos[nIntersecciones, 1] = indices[1];
             nPosibilidades[indices[0]] = aux;
             nPosibilidades[indices[1]] = aux;
             nPosibilidades[indices[2]] = 0;
@@ -175,6 +199,45 @@ public class CiudadPruebas : MonoBehaviour
         nIntersecciones++;
 
     }
+
+    void Semaforo()
+    {
+        if (timer > 5 && timer < 10)
+        {   
+            for (int i = 0; i < 12; i++)
+            {
+                paresdeSemaforos[i, 0] = 1;
+                paresdeSemaforos[i, 1] = 1;
+            }
+        }
+        else if (timer > 10)
+        {
+            for (int i = 0; i < 12; i++)
+            {
+                if (!auxSemaforo)
+                {
+                    paresdeSemaforos[i, 0] = 2;
+                    paresdeSemaforos[i, 1] = 0;
+                }
+                else
+                {
+                    paresdeSemaforos[i, 0] = 0;
+                    paresdeSemaforos[i, 1] = 1;
+                }
+            }
+            if (!auxSemaforo)
+            {
+                auxSemaforo = true;
+            }
+            else
+            {
+                auxSemaforo = false;
+            }
+            timer = 0;
+            Debug.Log("Pasaron 10 segundos");
+        }
+    }
+
 
     void CrearWaypoints(){
         AgregarWaypoints(0, posicionY, 7.5f, "derechaArriba", false, true, true, false);
@@ -305,14 +368,14 @@ public class CiudadPruebas : MonoBehaviour
 
     void ObtenerMatrizEuclidiana(){
         for (int i = 0; i < nCarros; i++){
-            Vector3 proyeccionI = listadoCarros[i].transform.position + listadoCarros[i].vectorDireccionUnitario;
-            for ( int j = i; j < nCarros; j++){
+            Vector3 proyeccionI = listadoCarros[i].posicionActual + listadoCarros[i].vectorDireccionUnitario;
+            for ( int j = 0; j < nCarros; j++){
                 if (i == j){
                     matrizEuclidiana[i, j] = true;
                 }
                 else{
 
-                    Vector3 proyeccionJ = listadoCarros[j].transform.position + listadoCarros[j].vectorDireccionUnitario;
+                    Vector3 proyeccionJ = listadoCarros[j].posicionActual;
 
                     float x = proyeccionI.x - proyeccionJ.x;
                     float z = proyeccionI.z - proyeccionJ.z;
@@ -321,11 +384,11 @@ public class CiudadPruebas : MonoBehaviour
 
                     if (distanciaEuclidiana < distanciaMinima){
                         matrizEuclidiana[i,j] = false;
-                        matrizEuclidiana[j,i] = false;
+                        //matrizEuclidiana[j,i] = false;
                     }
                     else{
                         matrizEuclidiana[i,j] = true;
-                        matrizEuclidiana[j,i] = true;
+                        //matrizEuclidiana[j,i] = true;
                     }
                 }
             }
@@ -336,5 +399,8 @@ public class CiudadPruebas : MonoBehaviour
     void Update()
     {
         ObtenerMatrizEuclidiana();
+
+        Semaforo();
+        timer += Time.deltaTime;
     }
 }

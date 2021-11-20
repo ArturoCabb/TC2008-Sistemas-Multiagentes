@@ -3955,7 +3955,7 @@ MonoBehaviour:
   nPosibilidades: 
   unCarroCualquieraXD: {fileID: 6937579973436374232, guid: eb406438413c44dbeb011affa1b2291d, type: 3}
   listadoCarros: []
-  nCarros: 4
+  nCarros: 10
 --- !u!4 &802299391
 Transform:
   m_ObjectHideFlags: 0
