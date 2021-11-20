@@ -86,8 +86,35 @@ public class CarroPruebas : MonoBehaviour
 
     void ReacomodarVertices(int tipoGiro){
 
-        Matrix4x4 A = Transformations.TranslateM(0.0f, 0.0f, 0.0f);
+        Matrix4x4 A;
         //Matrix4x4 A = CiudadPruebas.tipoGiro1(tipoAvance);
+
+        /*
+        if (tipoGiro == 1){
+            A = Transformations.TranslateM(0f, 0.0f, -90);
+        }
+        else if(tipoGiro == 2){
+            A = Transformations.TranslateM(-90, 0.0f, 0.0f);
+        }
+        else if(tipoGiro == 3){
+            A = Transformations.TranslateM(0.0f, 0.0f, 90);
+        }
+        else if(tipoGiro == 4){
+            A = Transformations.TranslateM(90, 0.0f, 0.0f);
+        }
+        else if(tipoGiro == 5){
+            A = Transformations.TranslateM(-90, 0.0f, 0.0f);
+        }
+        else if(tipoGiro == 6){
+            A = Transformations.TranslateM(0f, 0.0f, 90);
+        }
+        else if(tipoGiro == 7){
+            A = Transformations.TranslateM(90, 0.0f, 0.0f);
+        }
+        else{
+            A = Transformations.TranslateM(0f, 0.0f, -90);
+        }
+        
 
         int n = points.Length;
         Vector4[] vs = new Vector4[n];
@@ -104,8 +131,9 @@ public class CarroPruebas : MonoBehaviour
             vs[i] = A * vs[i];
             final[i] = vs[i];
         }
+        */
 
-        GetComponent<MeshFilter>().mesh.vertices = final;
+        GetComponent<MeshFilter>().mesh.vertices = points;
 
     }
 
