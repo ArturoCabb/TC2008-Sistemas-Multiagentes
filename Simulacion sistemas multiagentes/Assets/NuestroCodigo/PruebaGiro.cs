@@ -39,42 +39,59 @@ public class PruebaGiro : MonoBehaviour
         // 1. ¿Cómo traslado el triángulo 3.2 unidades a la derecha y 2.4 unidades abajo?
 
         /* Estos hacen giro al sentido contrario de las manecillas del reloj
-         * Abajo a la izquierda*/
+         * Arriba derecha*/
+         /*
         Matrix4x4 transform2 = Transformations.RotateM(-angle, Transformations.AXIS.AX_Y);
         Matrix4x4 transform1 = Transformations.TranslateM(2.5f, 0.0f, 0.0f);
         Matrix4x4 transform3 = Transformations.TranslateM(-2.5f, 0.0f, 0.0f);
         //Matrix4x4 transform4 = Transformations.TranslateM(10, 0.0f, 10);
-        /* arriba izquierda
+        */
+        /* arriba izquierda*/
+        /*
         Matrix4x4 transform2 = Transformations.RotateM(-angle - 90, Transformations.AXIS.AX_Y);
         Matrix4x4 transform1 = Transformations.TranslateM(5f, 0.0f, 0.0f);
         Matrix4x4 transform3 = Transformations.TranslateM(0f, 0.0f, -5.0f);
-        * izquierda abajo
+        */
+        // izquierda abajo*/
+        /*
         Matrix4x4 transform2 = Transformations.RotateM(-angle - 180, Transformations.AXIS.AX_Y);
         Matrix4x4 transform1 = Transformations.TranslateM(5f, 0.0f, 0.0f);
         Matrix4x4 transform3 = Transformations.TranslateM(5.0f, 0.0f, 0.0f);
-        * abajo derecha
+        */
+        //abajo derecha */
+        /*
         Matrix4x4 transform2 = Transformations.RotateM(-angle - 270, Transformations.AXIS.AX_Y);
         Matrix4x4 transform1 = Transformations.TranslateM(5f, 0.0f, 0.0f);
         Matrix4x4 transform3 = Transformations.TranslateM(0.0f, 0.0f, 5.0f);
+        */
         
         
         /* Hacen giro en sentido de las manecillas del reloj
-        * Arriba derecha
+        */
+        // Abajo izquierda
+        /*
         Matrix4x4 transform2 = Transformations.RotateM(angle + 90, Transformations.AXIS.AX_Y);
         Matrix4x4 transform1 = Transformations.TranslateM(5f, 0.0f, 0.0f);
         Matrix4x4 transform3 = Transformations.TranslateM(0f, 0.0f, 5.0f);
-        * Abajo derecha
+        */
+        // Arriba izquierda
+        /*
         Matrix4x4 transform2 = Transformations.RotateM(angle + 180, Transformations.AXIS.AX_Y);
         Matrix4x4 transform1 = Transformations.TranslateM(5f, 0.0f, 0.0f);
         Matrix4x4 transform3 = Transformations.TranslateM(5.0f, 0.0f, 0.0f);
-        * izquierda arriba
+        */
+        // derecha arriba
+        /*
         Matrix4x4 transform2 = Transformations.RotateM(angle + 270, Transformations.AXIS.AX_Y);
         Matrix4x4 transform1 = Transformations.TranslateM(5f, 0.0f, 0.0f);
         Matrix4x4 transform3 = Transformations.TranslateM(0.0f, 0.0f, -5.0f);
-        * arriba
+        */
+        // abajo derecha
+        
         Matrix4x4 transform2 = Transformations.RotateM(angle, Transformations.AXIS.AX_Y);
-        Matrix4x4 transform1 = Transformations.TranslateM(5f, 0.0f, 0.0f);
-        Matrix4x4 transform3 = Transformations.TranslateM(-5.0f, 0.0f, 0.0f);
+        Matrix4x4 transform1 = Transformations.TranslateM(10f, 0.0f, 0.0f);
+        Matrix4x4 transform3 = Transformations.TranslateM(-10.0f, 0.0f, 0.0f);
+        
         
         /*
         Vector4 temp1 = new Vector4(points[0].x, points[0].y, points[0].z, 1);
@@ -111,6 +128,26 @@ public class PruebaGiro : MonoBehaviour
 
     }
 
+    void QuitarPivote(){
+        int n = points.Length;
+        int i;
+        Vector4[] vs = new Vector4[n];
+        Vector3[] final = new Vector3[n];
+        for(i=0; i < n; i++)
+        {
+            vs[i] = points[i];
+            vs[i].w = 1.0f;
+        }
+        Matrix4x4 transform1 = Transformations.TranslateM(0.0f, 0.0f, 10.0f);
+
+        for (i = 0; i < n; i++)
+        {
+            vs[i] = transform1 * vs[i];
+            final[i] = vs[i];
+        }
+        GetComponent<MeshFilter>().mesh.vertices = final;
+    }
+
 
     // Start is called before the first frame update
     void Start()
@@ -127,10 +164,11 @@ public class PruebaGiro : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        angle += 0.5f;
-        if (angle > 90)
-            angle = 0.0f;
-
+        angle += 0.3f;
+        if (angle > 90){
+            angle = 0;
+            //QuitarPivote();
+        }
         TransformCar();
     }
 }

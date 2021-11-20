@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class CiudadPruebas : MonoBehaviour
 {   
@@ -17,6 +18,8 @@ public class CiudadPruebas : MonoBehaviour
     public CarroPruebas[] listadoCarros;
     private GameObject[] misObjetos;
     public int nCarros = 4;
+    public bool[,] matrizEuclidiana;
+    private float distanciaMinima = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -49,6 +52,9 @@ public class CiudadPruebas : MonoBehaviour
         IniciarPosibilidades();
 
         SpawnCarros();
+
+        matrizEuclidiana = new bool[nCarros, nCarros];
+        ObtenerMatrizEuclidiana();
 
     }
 
@@ -214,28 +220,28 @@ public class CiudadPruebas : MonoBehaviour
     Matrix4x4 tipoGiro1(int tipoGiro){
 
         if (tipoGiro == 1){
-            return Transformations.TranslateM(0f, 0.0f, radio);
+            return Transformations.TranslateM(0f, 0.0f, -radio);
         }
         else if(tipoGiro == 2){
-            return Transformations.TranslateM(radio, 0.0f, 0.0f);
-        }
-        else if(tipoGiro == 3){
             return Transformations.TranslateM(-radio, 0.0f, 0.0f);
         }
+        else if(tipoGiro == 3){
+            return Transformations.TranslateM(0.0f, 0.0f, radio);
+        }
         else if(tipoGiro == 4){
-            return Transformations.TranslateM(0f, 0.0f, -radio);
+            return Transformations.TranslateM(radio, 0.0f, 0.0f);
         }
         else if(tipoGiro == 5){
-            return Transformations.TranslateM(-radio, 0.0f, 5.0f);
+            return Transformations.TranslateM(-radio, 0.0f, 0.0f);
         }
         else if(tipoGiro == 6){
-            return Transformations.TranslateM(0f, 0.0f, -radio);
+            return Transformations.TranslateM(0f, 0.0f, radio);
         }
         else if(tipoGiro == 7){
-            return Transformations.TranslateM(radio, 0.0f, 5.0f);
+            return Transformations.TranslateM(radio, 0.0f, 0.0f);
         }
         else{
-            return Transformations.TranslateM(0f, 0.0f, radio);
+            return Transformations.TranslateM(0f, 0.0f, -radio);
         }
 
     }
@@ -243,28 +249,28 @@ public class CiudadPruebas : MonoBehaviour
     Matrix4x4 tipoGiro2(int tipoGiro, int angulo){
 
         if (tipoGiro == 1){
-            return Transformations.RotateM(-angulo, Transformations.AXIS.AX_Y);
+            return Transformations.RotateM(angulo + 270, Transformations.AXIS.AX_Y);
         }
         else if(tipoGiro == 2){
-            return Transformations.RotateM(-angulo - 90, Transformations.AXIS.AX_Y);
-        }
-        else if(tipoGiro == 3){
-            return Transformations.RotateM(-angulo - 180, Transformations.AXIS.AX_Y);
-        }
-        else if(tipoGiro == 4){
-            return Transformations.RotateM(-angulo - 270, Transformations.AXIS.AX_Y);
-        }
-        else if(tipoGiro == 5){
             return Transformations.RotateM(angulo, Transformations.AXIS.AX_Y);
         }
-        else if(tipoGiro == 6){
+        else if(tipoGiro == 3){
             return Transformations.RotateM(angulo + 90, Transformations.AXIS.AX_Y);
         }
-        else if(tipoGiro == 7){
+        else if(tipoGiro == 4){
             return Transformations.RotateM(angulo + 180, Transformations.AXIS.AX_Y);
         }
+        else if(tipoGiro == 5){
+            return Transformations.RotateM(-angulo, Transformations.AXIS.AX_Y);
+        }
+        else if(tipoGiro == 6){
+            return Transformations.RotateM(-angulo - 270, Transformations.AXIS.AX_Y);
+        }
+        else if(tipoGiro == 7){
+            return Transformations.RotateM(-angulo - 180, Transformations.AXIS.AX_Y);
+        }
         else{
-            return Transformations.RotateM(angulo + 270, Transformations.AXIS.AX_Y);
+            return Transformations.RotateM(-angulo - 90, Transformations.AXIS.AX_Y);
         }
 
     }
@@ -290,15 +296,45 @@ public class CiudadPruebas : MonoBehaviour
         listadoCarros = new CarroPruebas[nCarros];
 
         for (int i = 0; i < nCarros; i++){
-            misObjetos[i] = Instantiate(unCarroCualquieraXD, new Vector3(0,0,-28), Quaternion.identity);
+            misObjetos[i] = Instantiate(unCarroCualquieraXD, new Vector3(0,0,-30 - (i*5)), Quaternion.identity);
             listadoCarros[i] = misObjetos[i].GetComponent<CarroPruebas>();
+            listadoCarros[i].numeroSerie = i;
         }
 
+    }
+
+    void ObtenerMatrizEuclidiana(){
+        for (int i = 0; i < nCarros; i++){
+            Vector3 proyeccionI = listadoCarros[i].transform.position + listadoCarros[i].vectorDireccionUnitario;
+            for ( int j = i; j < nCarros; j++){
+                if (i == j){
+                    matrizEuclidiana[i, j] = true;
+                }
+                else{
+
+                    Vector3 proyeccionJ = listadoCarros[j].transform.position + listadoCarros[j].vectorDireccionUnitario;
+
+                    float x = proyeccionI.x - proyeccionJ.x;
+                    float z = proyeccionI.z - proyeccionJ.z;
+
+                    float distanciaEuclidiana = (float) Math.Sqrt((x*x)+(z*z));
+
+                    if (distanciaEuclidiana < distanciaMinima){
+                        matrizEuclidiana[i,j] = false;
+                        matrizEuclidiana[j,i] = false;
+                    }
+                    else{
+                        matrizEuclidiana[i,j] = true;
+                        matrizEuclidiana[j,i] = true;
+                    }
+                }
+            }
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        ObtenerMatrizEuclidiana();
     }
 }

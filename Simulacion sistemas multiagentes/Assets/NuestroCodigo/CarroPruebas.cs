@@ -10,12 +10,14 @@ public class CarroPruebas : MonoBehaviour
     private Vector3 posicionInicio;
     private Vector3 posicionDestino;
     private Vector3 distanciaFaltante;
-    private float velocidad = 0.04f;
+    private float velocidad = 0.06f;
     private float tamaPaso;
     private float t;
     private int tipoAvance;
     private int angle;
     private Vector3[] points;
+    public int numeroSerie;
+    public Vector3 vectorDireccionUnitario;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,6 +30,7 @@ public class CarroPruebas : MonoBehaviour
         CalcularTamaPaso();
         tipoAvance = 0;
         angle = 0;
+        vectorDireccionUnitario = distanciaFaltante * tamaPaso;
     }
 
     void CalcularTamaPaso(){
@@ -37,32 +40,73 @@ public class CarroPruebas : MonoBehaviour
         float tiempo = distanciaDestino / velocidad;
 
         tamaPaso = 1 / tiempo;
+        vectorDireccionUnitario = distanciaFaltante * tamaPaso;
 
     }
 
     void Avanzar(){
-        if (tipoAvance == 0){
-            if (t <= 1){
-                transform.position = posicionInicio + (distanciaFaltante * t);
-                t += tamaPaso;
-            }
-            else{
-                t = 0;
-                CalcularPosiciones();
-                CalcularTamaPaso();
-            }
-        }
-        else{
-            if (angle <= 90){
-                Girar();
-                angle += 1;
-            }
-            else{
-                angle = 0;
-                CalcularPosiciones();
-                CalcularTamaPaso();
+
+        bool bandera = true;
+        for(int i = 0; i < miCiudad.nCarros; i++){
+            if (miCiudad.matrizEuclidiana[numeroSerie, i] == false){
+                bandera = false;
+                //Debug.Log(numeroSerie);
+                //Debug.Log(i);
+                break;
             }
         }
+
+        if (bandera){
+            if (tipoAvance == 0){
+                if (t <= 1){
+                    transform.position = posicionInicio + (distanciaFaltante * t);
+                    t += tamaPaso;
+                }
+                else{
+                    t = 0;
+                    CalcularPosiciones();
+                    CalcularTamaPaso();
+                }
+            }
+            else{
+                if (angle <= 90){
+                    Girar();
+                    angle += 1;
+                }
+                else{
+                    angle = 0;
+
+                    ReacomodarVertices(tipoAvance);
+                    CalcularPosiciones();
+                    CalcularTamaPaso();
+                }
+            }
+        }
+    }
+
+    void ReacomodarVertices(int tipoGiro){
+
+        Matrix4x4 A = Transformations.TranslateM(0.0f, 0.0f, 0.0f);
+        //Matrix4x4 A = CiudadPruebas.tipoGiro1(tipoAvance);
+
+        int n = points.Length;
+        Vector4[] vs = new Vector4[n];
+        Vector3[] final = new Vector3[n];
+
+        for(int i = 0; i < n; i++)
+        {
+            vs[i] = points[i];
+            vs[i].w = 1.0f;
+        }
+
+        for (int i = 0; i < n; i++)
+        {
+            vs[i] = A * vs[i];
+            final[i] = vs[i];
+        }
+
+        GetComponent<MeshFilter>().mesh.vertices = final;
+
     }
 
     void CalcularPosiciones(){
