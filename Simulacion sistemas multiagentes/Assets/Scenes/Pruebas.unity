@@ -3956,6 +3956,11 @@ MonoBehaviour:
   unCarroCualquieraXD: {fileID: 6937579973436374232, guid: eb406438413c44dbeb011affa1b2291d, type: 3}
   listadoCarros: []
   nCarros: 10
+  estados: 
+  bolaSemaforo: {fileID: 8152286866943989444, guid: 52fd5ced87223459ea8f70e02e1a351b, type: 3}
+  idSemaforo: 0
+  misSemaforos: []
+  relacionSemaforo: 
 --- !u!4 &802299391
 Transform:
   m_ObjectHideFlags: 0

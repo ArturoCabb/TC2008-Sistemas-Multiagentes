@@ -24,6 +24,10 @@ public class CiudadPruebas : MonoBehaviour
     public int[,] paresdeSemaforos;
     private float timer;
     private bool auxSemaforo = false;
+    public GameObject bolaSemaforo;
+    public int idSemaforo = 0;
+    public GameObject[] misSemaforos;
+    public int[] relacionSemaforo;
 
     // Start is called before the first frame update
     void Start()
@@ -33,6 +37,9 @@ public class CiudadPruebas : MonoBehaviour
         radio = 2.5f;
         posicionY = 0;
         timer = 0f;
+
+        misSemaforos = new GameObject[16];
+        relacionSemaforo = new int[16];
 
         nIntersecciones = 0;
         waypoints = new Vector3[48];
@@ -106,6 +113,14 @@ public class CiudadPruebas : MonoBehaviour
             estados[indices[3]] = 2;
             paresdeSemaforos[nIntersecciones, 0] = indices[2];
             paresdeSemaforos[nIntersecciones, 1] = indices[3];
+
+            if (abajo){
+                CrearSemaforo(indices[2]);
+            }
+            if (izquierda){
+                CrearSemaforo(indices[3]);
+            }
+
             nPosibilidades[indices[0]] = 0;
             nPosibilidades[indices[1]] = 0;
             nPosibilidades[indices[2]] = aux;
@@ -134,6 +149,14 @@ public class CiudadPruebas : MonoBehaviour
             estados[indices[3]] = 2;
             paresdeSemaforos[nIntersecciones, 0] = indices[0];
             paresdeSemaforos[nIntersecciones, 1] = indices[3];
+
+            if (arriba){
+                CrearSemaforo(indices[0]);
+            }
+            if (izquierda){
+                CrearSemaforo(indices[3]);
+            }
+
             nPosibilidades[indices[0]] = aux;
             nPosibilidades[indices[1]] = 0;
             nPosibilidades[indices[2]] = 0;
@@ -161,6 +184,14 @@ public class CiudadPruebas : MonoBehaviour
             estados[indices[2]] = 2;
             paresdeSemaforos[nIntersecciones, 0] = indices[1];
             paresdeSemaforos[nIntersecciones, 1] = indices[2];
+
+            if (abajo){
+                CrearSemaforo(indices[2]);
+            }
+            if (derecha){
+                CrearSemaforo(indices[1]);
+            }
+
             nPosibilidades[indices[0]] = 0;
             nPosibilidades[indices[1]] = aux;
             nPosibilidades[indices[2]] = aux;
@@ -190,6 +221,14 @@ public class CiudadPruebas : MonoBehaviour
             estados[indices[1]] = 2;
             paresdeSemaforos[nIntersecciones, 0] = indices[0];
             paresdeSemaforos[nIntersecciones, 1] = indices[1];
+
+            if (arriba){
+                CrearSemaforo(indices[0]);
+            }
+            if (derecha){
+                CrearSemaforo(indices[1]);
+            }
+
             nPosibilidades[indices[0]] = aux;
             nPosibilidades[indices[1]] = aux;
             nPosibilidades[indices[2]] = 0;
@@ -200,14 +239,20 @@ public class CiudadPruebas : MonoBehaviour
 
     }
 
+    void CrearSemaforo(int numWaypoint){
+        misSemaforos[idSemaforo] = Instantiate(bolaSemaforo, waypoints[numWaypoint], Quaternion.identity);
+        relacionSemaforo[idSemaforo] = numWaypoint;
+        idSemaforo++;
+    }
+
     void Semaforo()
     {
         if (timer > 5 && timer < 10)
         {   
             for (int i = 0; i < 12; i++)
             {
-                paresdeSemaforos[i, 0] = 1;
-                paresdeSemaforos[i, 1] = 1;
+                estados[paresdeSemaforos[i,0]] = 1;
+                estados[paresdeSemaforos[i,1]] = 1;
             }
         }
         else if (timer > 10)
@@ -216,13 +261,13 @@ public class CiudadPruebas : MonoBehaviour
             {
                 if (!auxSemaforo)
                 {
-                    paresdeSemaforos[i, 0] = 2;
-                    paresdeSemaforos[i, 1] = 0;
+                    estados[paresdeSemaforos[i,0]] = 2;
+                    estados[paresdeSemaforos[i,1]] = 0;
                 }
                 else
-                {
-                    paresdeSemaforos[i, 0] = 0;
-                    paresdeSemaforos[i, 1] = 1;
+                {   
+                    estados[paresdeSemaforos[i,0]] = 0;
+                    estados[paresdeSemaforos[i,1]] = 2;
                 }
             }
             if (!auxSemaforo)
@@ -234,7 +279,22 @@ public class CiudadPruebas : MonoBehaviour
                 auxSemaforo = false;
             }
             timer = 0;
-            Debug.Log("Pasaron 10 segundos");
+            //Debug.Log("Pasaron 10 segundos");
+        }
+    }
+
+    void ActualizarColores(){
+        for (int i = 0; i < idSemaforo; i++){
+            int waypointRelacionado = relacionSemaforo[i];
+            if (estados[waypointRelacionado] == 0){
+                misSemaforos[i].GetComponent<Renderer>().material.color = Color.green;
+            }
+            else if (estados[waypointRelacionado] == 1){
+                misSemaforos[i].GetComponent<Renderer>().material.color = Color.yellow;
+            }
+            else{
+                misSemaforos[i].GetComponent<Renderer>().material.color = Color.red;
+            }
         }
     }
 
@@ -401,6 +461,7 @@ public class CiudadPruebas : MonoBehaviour
         ObtenerMatrizEuclidiana();
 
         Semaforo();
+        ActualizarColores();
         timer += Time.deltaTime;
     }
 }
