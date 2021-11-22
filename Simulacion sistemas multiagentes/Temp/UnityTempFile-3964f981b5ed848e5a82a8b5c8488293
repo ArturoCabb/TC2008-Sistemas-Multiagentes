@@ -324,6 +324,7 @@
 "Assets/ControllerPB.cs"
 "Assets/Frenado.cs"
 "Assets/M3.cs"
+"Assets/MeshGenerator.cs"
 "Assets/MoverCocheBueno.cs"
 "Assets/NuestroCodigo/CarroMov.cs"
 "Assets/NuestroCodigo/CarroPruebas.cs"

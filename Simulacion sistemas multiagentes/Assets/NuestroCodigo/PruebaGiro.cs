@@ -123,6 +123,7 @@ public class PruebaGiro : MonoBehaviour
 
         
         GetComponent<MeshFilter>().mesh.vertices = final;
+        //GetComponent<MeshFilter>().mesh.triangles = tris;
         
         //transform.position = final;
 
@@ -153,10 +154,11 @@ public class PruebaGiro : MonoBehaviour
     void Start()
     {
         angle = 0;
-        transform.position = new Vector3(10,0,10);
+        //transform.position = new Vector3(10,0,10);
         Mesh mesh = GetComponent<MeshFilter>().mesh;
         // Geometry
         points = mesh.vertices;
+        tris = mesh.triangles;
 
         //posInicio = transform.position;
     }
