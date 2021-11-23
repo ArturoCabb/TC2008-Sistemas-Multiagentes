@@ -281,5 +281,11 @@ public class CarroPruebas : MonoBehaviour
     void Update()
     {
         Avanzar();
+        if (parado)
+        {
+            Debug.Log("CochePruebaSiii>>:" + numeroSerie + "," + waypointActual + "," + 0);
+        }
+        else
+            Debug.Log("CochePruebaSiii>>:" + numeroSerie + "," + waypointActual + "," + velocidad);
     }
 }
