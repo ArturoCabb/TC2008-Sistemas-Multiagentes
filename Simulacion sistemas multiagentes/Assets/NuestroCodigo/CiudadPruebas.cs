@@ -421,7 +421,6 @@ public class CiudadPruebas : MonoBehaviour
         }
     }
 
-
     void CrearWaypoints(){
         AgregarWaypoints(0, posicionY, 7.5f, "derechaArriba", false, true, true, false);
         AgregarWaypoints(-10, posicionY, 7.5f, "derechaAbajo", false, true, true, false); //Editado
@@ -439,21 +438,35 @@ public class CiudadPruebas : MonoBehaviour
 
     void IniciarPosibilidades(){
         AgregarPosibilidad(13, 11);
+        llenarMatrizDeProbabilidades(13, 11, 0.1f);
         AgregarPosibilidad(9, 7);
+        llenarMatrizDeProbabilidades(9, 7, 0.99f);
         //AgregarPosibilidad(5, 3);
         AgregarPosibilidad(19, 21);
+        llenarMatrizDeProbabilidades(19, 21, 0.86f);
         AgregarPosibilidad(23, 25);
+        llenarMatrizDeProbabilidades(23, 25, 0.8f);
         AgregarPosibilidad(27, 29);
+        llenarMatrizDeProbabilidades(27, 29, 0.28f);
         AgregarPosibilidad(45, 43);
+        llenarMatrizDeProbabilidades(45, 43, 0.345f);
         AgregarPosibilidad(41, 39);
+        llenarMatrizDeProbabilidades(41, 39, );
         AgregarPosibilidad(36, 34);
+        llenarMatrizDeProbabilidades(36, 34, );
         AgregarPosibilidad(32, 18);
+        llenarMatrizDeProbabilidades(32, 18, );
         //AgregarPosibilidad(16, 2);
         AgregarPosibilidad(6, 20);
+        llenarMatrizDeProbabilidades(6, 20, );
         AgregarPosibilidad(22, 40);
+        llenarMatrizDeProbabilidades(22, 40, );
         AgregarPosibilidad(24, 10);
+        llenarMatrizDeProbabilidades(24, 10, );
         AgregarPosibilidad(14, 28);
+        llenarMatrizDeProbabilidades(14, 28, );
         AgregarPosibilidad(30, 44);
+        llenarMatrizDeProbabilidades(30, 44, );
     }
 
     void AgregarPosibilidad(int waypointInicio, int waypointFinal){
@@ -535,6 +548,10 @@ public class CiudadPruebas : MonoBehaviour
 
         }
 
+    }
+
+    void llenarMatrizDeProbabilidades(int waypointInicio, int waypointFinal, float probabilidad){
+        probabilidadPosibilidades[waypointInicio,waypointFinal] = probabilidad;
     }
 
     void AcomodarCoche(int tipoGiro){
