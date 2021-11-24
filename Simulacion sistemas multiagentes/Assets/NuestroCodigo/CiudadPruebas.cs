@@ -12,6 +12,7 @@ public class CiudadPruebas : MonoBehaviour
     public int[,] posibilidades;
     public int[] nPosibilidades;
     public int[,] tipoRecorrido;
+    public int[,] probabilidadPosibilidades;
     private float posicionY;
     public GameObject unCarroCualquieraXD;
     public CarroPruebas[] listadoCarros;
