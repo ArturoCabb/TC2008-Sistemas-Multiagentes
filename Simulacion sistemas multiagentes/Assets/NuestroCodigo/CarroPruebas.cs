@@ -255,7 +255,8 @@ public class CarroPruebas : MonoBehaviour
             probabilidad = miCiudad.probabilidadPosibilidades[waypointActual, i];
             if (probabilidad > 0){
                 probabilidadAcumulada += probabilidad;
-                if (probabilidadAcumulada >= nuevoNumeroAleatorio){
+                if (probabilidadAcumulada >= numeroAleatorio){
+                    int nuevoNumeroAleatorio = probabilidadAcumulada;
                     tipoAvance = miCiudad.tipoRecorrido[waypointDestino, nuevoNumeroAleatorio];
                     waypointActual = waypointDestino;
                     waypointDestino = miCiudad.posibilidades[waypointDestino, nuevoNumeroAleatorio];
