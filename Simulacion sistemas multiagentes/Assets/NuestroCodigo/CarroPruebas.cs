@@ -248,20 +248,31 @@ public class CarroPruebas : MonoBehaviour
     }
 
     void CalcularPosiciones(){
-        int numeroAleatorio = UnityEngine.Random.Range(0, miCiudad.nPosibilidades[waypointDestino]);
-        tipoAvance = miCiudad.tipoRecorrido[waypointDestino, numeroAleatorio];
-        waypointActual = waypointDestino;
-        waypointDestino = miCiudad.posibilidades[waypointDestino, numeroAleatorio];
-        posicionInicio = posicionDestino;
-        transform.position = posicionDestino;
-        posicionActual = posicionDestino;
-        posicionDestino = miCiudad.waypoints[waypointDestino];
-        distanciaFaltante = posicionDestino - posicionInicio;
-        if (tipoAvance != 0){
-            angle = 0;
-            mesh = GetComponent<MeshFilter>().mesh;
-            points = mesh.vertices;
+        //int numeroAleatorio = UnityEngine.Random.Range(0, miCiudad.nPosibilidades[waypointDestino]);
+        float numeroAleatorio = UnityEngine.Random.Range(0.0f, 1.0f);
+        float probabilidad = 0f, probabilidadAcumulada;
+        for(int i = 0; i < 48; i++) {
+            probabilidad = miCiudad.probabilidadPosibilidades[waypointActual, i];
+            if (probabilidad > 0){
+                probabilidadAcumulada += probabilidad;
+                if (probabilidadAcumulada >= nuevoNumeroAleatorio){
+                    tipoAvance = miCiudad.tipoRecorrido[waypointDestino, nuevoNumeroAleatorio];
+                    waypointActual = waypointDestino;
+                    waypointDestino = miCiudad.posibilidades[waypointDestino, nuevoNumeroAleatorio];
+                    posicionInicio = posicionDestino;
+                    transform.position = posicionDestino;
+                    posicionActual = posicionDestino;
+                    posicionDestino = miCiudad.waypoints[waypointDestino];
+                    distanciaFaltante = posicionDestino - posicionInicio;
+                    if (tipoAvance != 0){
+                        angle = 0;
+                        mesh = GetComponent<MeshFilter>().mesh;
+                        points = mesh.vertices;
+                    }
+                }
+            }   
         }
+        
     }
 
     void GirarMejorado(){

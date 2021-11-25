@@ -67,6 +67,13 @@ public class CiudadPruebas : MonoBehaviour
         paresdeSemaforos = new int[12,2];
         estados = new int[48];
 
+        probabilidadPosibilidades = int[48, 48]
+
+        for (int i = 0; i < 48; i++){
+            for (int j = 0; j < 48; j++)
+            probabilidadPosibilidades[i, j] = 0f;
+        }
+
         for ( int i = 0; i < 48; i++){
             estados[i] = 0;
         }
@@ -438,35 +445,32 @@ public class CiudadPruebas : MonoBehaviour
 
     void IniciarPosibilidades(){
         AgregarPosibilidad(13, 11);
-        llenarMatrizDeProbabilidades(13, 11, 0.1f);
         AgregarPosibilidad(9, 7);
-        llenarMatrizDeProbabilidades(9, 7, 0.99f);
         //AgregarPosibilidad(5, 3);
         AgregarPosibilidad(19, 21);
-        llenarMatrizDeProbabilidades(19, 21, 0.86f);
         AgregarPosibilidad(23, 25);
-        llenarMatrizDeProbabilidades(23, 25, 0.8f);
         AgregarPosibilidad(27, 29);
-        llenarMatrizDeProbabilidades(27, 29, 0.28f);
         AgregarPosibilidad(45, 43);
-        llenarMatrizDeProbabilidades(45, 43, 0.345f);
         AgregarPosibilidad(41, 39);
-        llenarMatrizDeProbabilidades(41, 39, );
         AgregarPosibilidad(36, 34);
-        llenarMatrizDeProbabilidades(36, 34, );
         AgregarPosibilidad(32, 18);
-        llenarMatrizDeProbabilidades(32, 18, );
         //AgregarPosibilidad(16, 2);
         AgregarPosibilidad(6, 20);
-        llenarMatrizDeProbabilidades(6, 20, );
         AgregarPosibilidad(22, 40);
-        llenarMatrizDeProbabilidades(22, 40, );
         AgregarPosibilidad(24, 10);
-        llenarMatrizDeProbabilidades(24, 10, );
         AgregarPosibilidad(14, 28);
-        llenarMatrizDeProbabilidades(14, 28, );
         AgregarPosibilidad(30, 44);
-        llenarMatrizDeProbabilidades(30, 44, );
+
+        llenarMatrizDeProbabilidades(18, 19, 1.0f);
+        llenarMatrizDeProbabilidades(21, 22, 0.4f);
+        llenarMatrizDeProbabilidades(21, 23, 0.6f);
+        llenarMatrizDeProbabilidades(40, 41, 0.9f);
+        llenarMatrizDeProbabilidades(25, 24, 0.3f);
+        llenarMatrizDeProbabilidades(25, 27, 0.6f);
+        llenarMatrizDeProbabilidades(20, 23, 0.1f);
+        llenarMatrizDeProbabilidades(20, 22, 0.9f);
+        llenarMatrizDeProbabilidades(29, 30, 0.9f);
+        llenarMatrizDeProbabilidades(43, 41, 1.0f);
     }
 
     void AgregarPosibilidad(int waypointInicio, int waypointFinal){
