@@ -10,9 +10,9 @@ public class CiudadPruebas : MonoBehaviour
     private float radio;
     private int[] indices;
     public int[,] posibilidades;
+    public int[,] porcentajes;
     public int[] nPosibilidades;
     public int[,] tipoRecorrido;
-    public int[,] probabilidadPosibilidades;
     private float posicionY;
     public GameObject unCarroCualquieraXD;
     public CarroPruebas[] listadoCarros;
@@ -63,17 +63,11 @@ public class CiudadPruebas : MonoBehaviour
         nIntersecciones = 0;
         waypoints = new Vector3[48];
         posibilidades = new int[48, 2];
+        porcentajes = new int[48, 2];
         tipoRecorrido = new int[48, 2];
 
         paresdeSemaforos = new int[12,2];
         estados = new int[48];
-
-        probabilidadPosibilidades = int[48, 48]
-
-        for (int i = 0; i < 48; i++){
-            for (int j = 0; j < 48; j++)
-            probabilidadPosibilidades[i, j] = 0f;
-        }
 
         for ( int i = 0; i < 48; i++){
             estados[i] = 0;
@@ -82,6 +76,8 @@ public class CiudadPruebas : MonoBehaviour
         for (int i = 0; i < 48; i++){
             posibilidades[i, 0] = -1;
             posibilidades[i, 1] = -1;
+            porcentajes[i, 0] = 100;
+            porcentajes[i, 1] = 100;
         }
 
         for (int i = 0; i < 48; i++){
@@ -92,6 +88,8 @@ public class CiudadPruebas : MonoBehaviour
         CrearWaypoints();
 
         IniciarPosibilidades();
+
+        AgregarPorcentajes();
 
         CrearCarroPruebas();
 
@@ -106,6 +104,17 @@ public class CiudadPruebas : MonoBehaviour
 
         transform.position = new Vector3(-5, 0, -10);
 
+    }
+
+    void AgregarPorcentajes(){
+        PonerPorcentaje(20, 30, 70);
+        PonerPorcentaje(21, 20, 80);
+        PonerPorcentaje(25, 60, 40);
+    }
+
+    void PonerPorcentaje(int waypointI, int porcentaje1, int porcentaje2){
+        porcentajes[waypointI, 0] = porcentaje1;
+        porcentajes[waypointI, 1] = porcentaje2;
     }
 
     void CreateShape()
@@ -464,17 +473,6 @@ public class CiudadPruebas : MonoBehaviour
         AgregarPosibilidad(24, 10);
         AgregarPosibilidad(14, 28);
         AgregarPosibilidad(30, 44);
-
-        llenarMatrizDeProbabilidades(18, 19, 1.0f);
-        llenarMatrizDeProbabilidades(21, 22, 0.4f);
-        llenarMatrizDeProbabilidades(21, 23, 0.6f);
-        llenarMatrizDeProbabilidades(40, 41, 0.9f);
-        llenarMatrizDeProbabilidades(25, 24, 0.3f);
-        llenarMatrizDeProbabilidades(25, 27, 0.6f);
-        llenarMatrizDeProbabilidades(20, 23, 0.1f);
-        llenarMatrizDeProbabilidades(20, 22, 0.9f);
-        llenarMatrizDeProbabilidades(29, 30, 0.9f);
-        llenarMatrizDeProbabilidades(43, 41, 1.0f);
     }
 
     void AgregarPosibilidad(int waypointInicio, int waypointFinal){
@@ -556,10 +554,6 @@ public class CiudadPruebas : MonoBehaviour
 
         }
 
-    }
-
-    void llenarMatrizDeProbabilidades(int waypointInicio, int waypointFinal, float probabilidad){
-        probabilidadPosibilidades[waypointInicio,waypointFinal] = probabilidad;
     }
 
     void AcomodarCoche(int tipoGiro){

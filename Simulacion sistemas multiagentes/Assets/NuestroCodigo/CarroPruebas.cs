@@ -247,6 +247,7 @@ public class CarroPruebas : MonoBehaviour
 
     }
 
+    /*
     void CalcularPosiciones(){
         int numeroAleatorio = UnityEngine.Random.Range(0, miCiudad.nPosibilidades[waypointDestino]);
         tipoAvance = miCiudad.tipoRecorrido[waypointDestino, nuevoNumeroAleatorio];
@@ -274,7 +275,43 @@ public class CarroPruebas : MonoBehaviour
                 }
             }   
         }*/
+     /*   
+    }
+    */
+
+    void CalcularPosiciones(){
         
+        int numeroAleatorio = CalcularAleatorio(waypointDestino);
+        tipoAvance = miCiudad.tipoRecorrido[waypointDestino, numeroAleatorio];
+        waypointActual = waypointDestino;
+        waypointDestino = miCiudad.posibilidades[waypointDestino, numeroAleatorio];
+        posicionInicio = posicionDestino;
+        transform.position = posicionDestino;
+        posicionActual = posicionDestino;
+        posicionDestino = miCiudad.waypoints[waypointDestino];
+        distanciaFaltante = posicionDestino - posicionInicio;
+        if (tipoAvance != 0){
+            angle = 0;
+            mesh = GetComponent<MeshFilter>().mesh;
+            points = mesh.vertices;
+        }
+        
+    }
+
+    int CalcularAleatorio(int waypoint){
+        int decision = 0;
+        int cantidadPosible = miCiudad.nPosibilidades[waypoint];
+
+        int aleatorio = UnityEngine.Random.Range(0, 100);
+        int acumulado = 0;
+        for (int i = 0; i < cantidadPosible; i++){
+            acumulado += miCiudad.porcentajes[waypoint, i];
+            if (aleatorio <= acumulado){
+                decision = i;
+                break;
+            }
+        }
+        return decision;
     }
 
     void GirarMejorado(){
@@ -294,11 +331,13 @@ public class CarroPruebas : MonoBehaviour
     void Update()
     {
         Avanzar();
+        /*
         if (parado)
         {
             Debug.Log("CochePruebaSiii>>:" + numeroSerie + "," + waypointActual + "," + 0);
         }
         else
             Debug.Log("CochePruebaSiii>>:" + numeroSerie + "," + waypointActual + "," + velocidad);
+        */
     }
 }
