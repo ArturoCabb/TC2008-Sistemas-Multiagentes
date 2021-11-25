@@ -44,6 +44,7 @@ public class CiudadPruebas : MonoBehaviour
     private float espacioLlantas = 0.05f;
     private int cubos = 5;
     public int n;
+    public int estadoColor;
 
     void Start()
     {   
@@ -418,12 +419,15 @@ public class CiudadPruebas : MonoBehaviour
             int waypointRelacionado = relacionSemaforo[i];
             if (estados[waypointRelacionado] == 0){
                 misSemaforos[i].GetComponent<Renderer>().material.color = Color.green;
+                estadoColor = 0;
             }
             else if (estados[waypointRelacionado] == 1){
                 misSemaforos[i].GetComponent<Renderer>().material.color = Color.yellow;
+                estadoColor = 1;
             }
             else{
                 misSemaforos[i].GetComponent<Renderer>().material.color = Color.red;
+                estadoColor = 2;
             }
         }
     }
