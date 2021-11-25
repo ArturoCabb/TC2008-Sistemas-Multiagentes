@@ -22,20 +22,14 @@ public class ControlSemaforo : MonoBehaviour
         if (colores.estadoColor == 2)
         {
             Lights[0].GetComponent<Renderer>().material.color = Color.red;
-            Lights[1].GetComponent<Renderer>().material.color = Color.white;
-            Lights[2].GetComponent<Renderer>().material.color = Color.white;
         }
         else if (colores.estadoColor == 0)
         {
-            Lights[0].GetComponent<Renderer>().material.color = Color.white;
-            Lights[1].GetComponent<Renderer>().material.color = Color.white;
-            Lights[2].GetComponent<Renderer>().material.color = Color.green;
+            Lights[0].GetComponent<Renderer>().material.color = Color.green;
         }
         else if (colores.estadoColor == 1)
         {
-            Lights[0].GetComponent<Renderer>().material.color = Color.white;
-            Lights[1].GetComponent<Renderer>().material.color = Color.yellow;
-            Lights[2].GetComponent<Renderer>().material.color = Color.white;
+            Lights[0].GetComponent<Renderer>().material.color = Color.yellow;
         }
         else
         {
