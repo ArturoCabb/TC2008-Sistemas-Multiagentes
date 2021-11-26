@@ -429,17 +429,17 @@ public class CiudadPruebas : MonoBehaviour
             int waypointRelacionado = relacionSemaforo[i];
             if (estados[waypointRelacionado] == 0){
                 pasarIdSemaforo = i;
-                misSemaforos[i].GetComponent<Renderer>().material.color = Color.green;
+                misSemaforos[i].GetComponent<Renderer>().enabled = false;
                 estadoColor = 0;
             }
             else if (estados[waypointRelacionado] == 1){
                 pasarIdSemaforo = i;
-                misSemaforos[i].GetComponent<Renderer>().material.color = Color.yellow;
+                misSemaforos[i].GetComponent<Renderer>().enabled = false;
                 estadoColor = 1;
             }
             else{
                 pasarIdSemaforo = i;
-                misSemaforos[i].GetComponent<Renderer>().material.color = Color.red;
+                misSemaforos[i].GetComponent<Renderer>().enabled = false;
                 estadoColor = 2;
             }
         }

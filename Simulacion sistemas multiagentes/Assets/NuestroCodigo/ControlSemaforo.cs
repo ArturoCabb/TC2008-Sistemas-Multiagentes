@@ -11,7 +11,7 @@ public class ControlSemaforo : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        luz.GetComponent<ControlSemaforo>().id = id;
+        colores = FindObjectOfType<CiudadPruebas>();
     }
 
     // Update is called once per frame

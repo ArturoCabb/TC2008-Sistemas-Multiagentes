@@ -4535,6 +4535,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Crossroads_1 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 3668532909800361976, guid: 33ae3a99eddf3ea469439cebc3eb3d44, type: 3}
+      propertyPath: id
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 3668532909800361976, guid: 33ae3a99eddf3ea469439cebc3eb3d44, type: 3}
+      propertyPath: luz
+      value: 
+      objectReference: {fileID: 1996009098}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 33ae3a99eddf3ea469439cebc3eb3d44, type: 3}
 --- !u!4 &863918906 stripped
@@ -9617,6 +9625,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1083322435393582259, guid: 8f352fc1555608546b47a1dd0630ba96, type: 3}
   m_PrefabInstance: {fileID: 2115990556}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1996009098 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7979178827191447883, guid: 33ae3a99eddf3ea469439cebc3eb3d44, type: 3}
+  m_PrefabInstance: {fileID: 863918905}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2028563069
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10395,7 +10408,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6006183298981890560, guid: 8f352fc1555608546b47a1dd0630ba96, type: 3}
       propertyPath: id
-      value: 12
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 6006183298981890560, guid: 8f352fc1555608546b47a1dd0630ba96, type: 3}
       propertyPath: luz
