@@ -4,36 +4,30 @@ using UnityEngine;
 
 public class ControlSemaforo : MonoBehaviour
 {
-    public List<Transform> Lights = new List<Transform>();
-    public float timer = 0.0f;
+    public GameObject luz;
     private CiudadPruebas colores;
+    public int id;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        luz.GetComponent<ControlSemaforo>().id = id;
     }
 
     // Update is called once per frame
     void Update()
     {
-        timer += Time.deltaTime;
-
-        if (colores.estadoColor == 2)
+        if ((colores.estadoColor == 2) && (id == colores.pasarIdSemaforo))
         {
-            Lights[0].GetComponent<Renderer>().material.color = Color.red;
+            luz.GetComponent<Renderer>().material.color = Color.red;
         }
-        else if (colores.estadoColor == 0)
+        else if ((colores.estadoColor == 0) && (id == colores.pasarIdSemaforo))
         {
-            Lights[0].GetComponent<Renderer>().material.color = Color.green;
+            luz.GetComponent<Renderer>().material.color = Color.green;
         }
-        else if (colores.estadoColor == 1)
+        else if ((colores.estadoColor == 1) && (id == colores.pasarIdSemaforo))
         {
-            Lights[0].GetComponent<Renderer>().material.color = Color.yellow;
-        }
-        else
-        {
-            timer = 0f;
+            luz.GetComponent<Renderer>().material.color = Color.yellow;
         }
     }
 }

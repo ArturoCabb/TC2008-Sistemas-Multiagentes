@@ -2256,7 +2256,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Traffic_light (1)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1984441451887270895, guid: 900f03829bb8941428e9260f447d5fba, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 900f03829bb8941428e9260f447d5fba, type: 3}
 --- !u!4 &3059919065326710559 stripped
 Transform:

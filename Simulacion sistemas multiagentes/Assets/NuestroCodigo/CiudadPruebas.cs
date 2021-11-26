@@ -45,6 +45,7 @@ public class CiudadPruebas : MonoBehaviour
     private int cubos = 5;
     public int n;
     public int estadoColor;
+    public int pasarIdSemaforo;
 
     void Start()
     {   
@@ -427,14 +428,17 @@ public class CiudadPruebas : MonoBehaviour
         for (int i = 0; i < idSemaforo; i++){
             int waypointRelacionado = relacionSemaforo[i];
             if (estados[waypointRelacionado] == 0){
+                pasarIdSemaforo = i;
                 misSemaforos[i].GetComponent<Renderer>().material.color = Color.green;
                 estadoColor = 0;
             }
             else if (estados[waypointRelacionado] == 1){
+                pasarIdSemaforo = i;
                 misSemaforos[i].GetComponent<Renderer>().material.color = Color.yellow;
                 estadoColor = 1;
             }
             else{
+                pasarIdSemaforo = i;
                 misSemaforos[i].GetComponent<Renderer>().material.color = Color.red;
                 estadoColor = 2;
             }
