@@ -17,15 +17,15 @@ public class ControlSemaforo : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if ((colores.estadoColor == 2) && (id == colores.pasarIdSemaforo))
+        if (colores.estados[id] == 2)
         {
             luz.GetComponent<Renderer>().material.color = Color.red;
         }
-        else if ((colores.estadoColor == 0) && (id == colores.pasarIdSemaforo))
+        else if (colores.estados[id] == 0)
         {
             luz.GetComponent<Renderer>().material.color = Color.green;
         }
-        else if ((colores.estadoColor == 1) && (id == colores.pasarIdSemaforo))
+        else if (colores.estados[id] == 1)
         {
             luz.GetComponent<Renderer>().material.color = Color.yellow;
         }

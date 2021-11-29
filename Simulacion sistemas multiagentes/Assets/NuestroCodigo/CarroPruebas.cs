@@ -331,13 +331,13 @@ public class CarroPruebas : MonoBehaviour
     void Update()
     {
         Avanzar();
-        /*
+        
         if (parado)
         {
-            Debug.Log("CochePruebaSiii>>:" + numeroSerie + "," + waypointActual + "," + 0);
+            Debug.Log("CochePruebaSiiibueno2>>>>:" + numeroSerie + "," + waypointActual + "," + 0);
         }
         else
-            Debug.Log("CochePruebaSiii>>:" + numeroSerie + "," + waypointActual + "," + velocidad);
-        */
+            Debug.Log("CochePruebaSiiibueno2>>>>:" + numeroSerie + "," + waypointActual + "," + velocidad);
+        
     }
 }

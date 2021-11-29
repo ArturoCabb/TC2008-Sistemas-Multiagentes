@@ -44,8 +44,7 @@ public class CiudadPruebas : MonoBehaviour
     private float espacioLlantas = 0.05f;
     private int cubos = 5;
     public int n;
-    public int estadoColor;
-    public int pasarIdSemaforo;
+    public int tipo_de_configuracion;
 
     void Start()
     {   
@@ -389,38 +388,88 @@ public class CiudadPruebas : MonoBehaviour
 
     void Semaforo()
     {
-        if (timer > 5 && timer < 10)
-        {   
-            for (int i = 0; i < 12; i++)
-            {
-                estados[paresdeSemaforos[i,0]] = 1;
-                estados[paresdeSemaforos[i,1]] = 1;
-            }
-        }
-        else if (timer > 10)
+        if (tipo_de_configuracion == 0)
         {
-            for (int i = 0; i < 12; i++)
+            if (timer > 5 && timer < 10)
             {
+                for (int i = 0; i < 12; i++)
+                {
+                    estados[paresdeSemaforos[i, 0]] = 1;
+                    estados[paresdeSemaforos[i, 1]] = 1;
+                }
+            }
+            else if (timer > 10)
+            {
+                for (int i = 0; i < 12; i++)
+                {
+                    if (!auxSemaforo)
+                    {
+                        estados[paresdeSemaforos[i, 0]] = 2;
+                        estados[paresdeSemaforos[i, 1]] = 0;
+                    }
+                    else
+                    {
+                        estados[paresdeSemaforos[i, 0]] = 0;
+                        estados[paresdeSemaforos[i, 1]] = 2;
+                    }
+                }
                 if (!auxSemaforo)
                 {
-                    estados[paresdeSemaforos[i,0]] = 2;
-                    estados[paresdeSemaforos[i,1]] = 0;
+                    auxSemaforo = true;
                 }
                 else
-                {   
-                    estados[paresdeSemaforos[i,0]] = 0;
-                    estados[paresdeSemaforos[i,1]] = 2;
+                {
+                    auxSemaforo = false;
+                }
+                timer = 0;
+            }
+        }
+        else if (tipo_de_configuracion == 1)
+        {
+            if (timer > 5 && timer < 13)
+            {
+                for (int i = 0; i < 12; i++)
+                {
+                    estados[paresdeSemaforos[i, 0]] = 1;
+                    estados[paresdeSemaforos[i, 1]] = 1;
                 }
             }
-            if (!auxSemaforo)
+            else if (timer > 13)
             {
-                auxSemaforo = true;
+                for (int i = 0; i < 12; i++)
+                {
+                    if (!auxSemaforo)
+                    {
+                        estados[paresdeSemaforos[i, 0]] = 2;
+                        estados[paresdeSemaforos[i, 1]] = 0;
+                    }
+                    else
+                    {
+                        estados[paresdeSemaforos[i, 0]] = 0;
+                        estados[paresdeSemaforos[i, 1]] = 2;
+                    }
+                }
+                if (!auxSemaforo)
+                {
+                    auxSemaforo = true;
+                }
+                else
+                {
+                    auxSemaforo = false;
+                }
+                timer = 0;
             }
-            else
+        }
+        else if (tipo_de_configuracion == 2)
+        {
+            if (timer == 0)
             {
-                auxSemaforo = false;
+                for (int i = 0; i < 12; i++)
+                {
+                    estados[paresdeSemaforos[i, 0]] = 0;
+                    estados[paresdeSemaforos[i, 1]] = 0;
+                }
             }
-            timer = 0;
         }
     }
 
@@ -428,19 +477,13 @@ public class CiudadPruebas : MonoBehaviour
         for (int i = 0; i < idSemaforo; i++){
             int waypointRelacionado = relacionSemaforo[i];
             if (estados[waypointRelacionado] == 0){
-                pasarIdSemaforo = i;
                 misSemaforos[i].GetComponent<Renderer>().enabled = false;
-                estadoColor = 0;
             }
             else if (estados[waypointRelacionado] == 1){
-                pasarIdSemaforo = i;
                 misSemaforos[i].GetComponent<Renderer>().enabled = false;
-                estadoColor = 1;
             }
             else{
-                pasarIdSemaforo = i;
                 misSemaforos[i].GetComponent<Renderer>().enabled = false;
-                estadoColor = 2;
             }
         }
     }

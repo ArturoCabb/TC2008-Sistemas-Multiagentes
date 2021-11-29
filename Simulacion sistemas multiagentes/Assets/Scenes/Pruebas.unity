@@ -3967,8 +3967,7 @@ MonoBehaviour:
   indicesMatrizGiro: 
   vertices: []
   n: 0
-  estadoColor: 0
-  pasarIdSemaforo: 0
+  tipo_de_configuracion: 2
 --- !u!4 &802299391
 Transform:
   m_ObjectHideFlags: 0
@@ -4530,6 +4529,18 @@ PrefabInstance:
     - target: {fileID: 462033188534436602, guid: 33ae3a99eddf3ea469439cebc3eb3d44, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1223745368245584417, guid: 33ae3a99eddf3ea469439cebc3eb3d44, type: 3}
+      propertyPath: id
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1357048944373745716, guid: 33ae3a99eddf3ea469439cebc3eb3d44, type: 3}
+      propertyPath: id
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1744753702216447738, guid: 33ae3a99eddf3ea469439cebc3eb3d44, type: 3}
+      propertyPath: id
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2526891196296273213, guid: 33ae3a99eddf3ea469439cebc3eb3d44, type: 3}
       propertyPath: m_Name
@@ -5177,9 +5188,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1249517165}
     m_Modifications:
+    - target: {fileID: 2297752659507847527, guid: 8f352fc1555608546b47a1dd0630ba96, type: 3}
+      propertyPath: id
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 5922009417999560412, guid: 8f352fc1555608546b47a1dd0630ba96, type: 3}
       propertyPath: m_Name
       value: Crossroads_2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7969984646743131918, guid: 8f352fc1555608546b47a1dd0630ba96, type: 3}
+      propertyPath: id
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 8599375735492571419, guid: 8f352fc1555608546b47a1dd0630ba96, type: 3}
       propertyPath: m_RootOrder
@@ -6699,6 +6718,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Crossroads_1 (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 8979130331085031694, guid: 33ae3a99eddf3ea469439cebc3eb3d44, type: 3}
+      propertyPath: id
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 33ae3a99eddf3ea469439cebc3eb3d44, type: 3}
 --- !u!4 &1316531232 stripped
@@ -7147,9 +7170,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1249517165}
     m_Modifications:
+    - target: {fileID: 831508747404631807, guid: 8f352fc1555608546b47a1dd0630ba96, type: 3}
+      propertyPath: id
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5922009417999560412, guid: 8f352fc1555608546b47a1dd0630ba96, type: 3}
       propertyPath: m_Name
       value: Crossroads_2 (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7568574226320590107, guid: 8f352fc1555608546b47a1dd0630ba96, type: 3}
+      propertyPath: id
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 7995419026539347891, guid: 8f352fc1555608546b47a1dd0630ba96, type: 3}
+      propertyPath: id
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 8599375735492571419, guid: 8f352fc1555608546b47a1dd0630ba96, type: 3}
       propertyPath: m_RootOrder
@@ -7395,9 +7430,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1249517165}
     m_Modifications:
+    - target: {fileID: 831508747404631807, guid: 8f352fc1555608546b47a1dd0630ba96, type: 3}
+      propertyPath: id
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 2511024568090464420, guid: 8f352fc1555608546b47a1dd0630ba96, type: 3}
+      propertyPath: id
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 5922009417999560412, guid: 8f352fc1555608546b47a1dd0630ba96, type: 3}
       propertyPath: m_Name
       value: Crossroads_2 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6006183298981890560, guid: 8f352fc1555608546b47a1dd0630ba96, type: 3}
+      propertyPath: id
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 8599375735492571419, guid: 8f352fc1555608546b47a1dd0630ba96, type: 3}
       propertyPath: m_RootOrder
@@ -7705,9 +7752,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1249517165}
     m_Modifications:
+    - target: {fileID: 2297752659507847527, guid: 8f352fc1555608546b47a1dd0630ba96, type: 3}
+      propertyPath: id
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 5922009417999560412, guid: 8f352fc1555608546b47a1dd0630ba96, type: 3}
       propertyPath: m_Name
       value: Crossroads_2 (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7568574226320590107, guid: 8f352fc1555608546b47a1dd0630ba96, type: 3}
+      propertyPath: id
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7995419026539347891, guid: 8f352fc1555608546b47a1dd0630ba96, type: 3}
+      propertyPath: id
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8599375735492571419, guid: 8f352fc1555608546b47a1dd0630ba96, type: 3}
       propertyPath: m_RootOrder
@@ -7767,6 +7826,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1249517165}
     m_Modifications:
+    - target: {fileID: 831508747404631807, guid: 8f352fc1555608546b47a1dd0630ba96, type: 3}
+      propertyPath: id
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5922009417999560412, guid: 8f352fc1555608546b47a1dd0630ba96, type: 3}
       propertyPath: m_Name
       value: Crossroads_2 (5)
@@ -8266,6 +8329,10 @@ PrefabInstance:
     - target: {fileID: 5922009417999560412, guid: 8f352fc1555608546b47a1dd0630ba96, type: 3}
       propertyPath: m_Name
       value: Crossroads_2 (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7969984646743131918, guid: 8f352fc1555608546b47a1dd0630ba96, type: 3}
+      propertyPath: id
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 8599375735492571419, guid: 8f352fc1555608546b47a1dd0630ba96, type: 3}
       propertyPath: m_RootOrder
@@ -9569,6 +9636,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Crossroads_2 (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 6006183298981890560, guid: 8f352fc1555608546b47a1dd0630ba96, type: 3}
+      propertyPath: id
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 8599375735492571419, guid: 8f352fc1555608546b47a1dd0630ba96, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -10198,9 +10269,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1223745368245584417, guid: 33ae3a99eddf3ea469439cebc3eb3d44, type: 3}
+      propertyPath: id
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1357048944373745716, guid: 33ae3a99eddf3ea469439cebc3eb3d44, type: 3}
+      propertyPath: id
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1744753702216447738, guid: 33ae3a99eddf3ea469439cebc3eb3d44, type: 3}
+      propertyPath: id
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 2526891196296273213, guid: 33ae3a99eddf3ea469439cebc3eb3d44, type: 3}
       propertyPath: m_Name
       value: Crossroads_1 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3836018901865574089, guid: 33ae3a99eddf3ea469439cebc3eb3d44, type: 3}
+      propertyPath: id
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 33ae3a99eddf3ea469439cebc3eb3d44, type: 3}
@@ -10414,6 +10501,14 @@ PrefabInstance:
       propertyPath: luz
       value: 
       objectReference: {fileID: 1995142627}
+    - target: {fileID: 7568574226320590107, guid: 8f352fc1555608546b47a1dd0630ba96, type: 3}
+      propertyPath: id
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 7995419026539347891, guid: 8f352fc1555608546b47a1dd0630ba96, type: 3}
+      propertyPath: id
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 8599375735492571419, guid: 8f352fc1555608546b47a1dd0630ba96, type: 3}
       propertyPath: m_RootOrder
       value: 1
