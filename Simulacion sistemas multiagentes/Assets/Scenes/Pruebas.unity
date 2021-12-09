@@ -3967,7 +3967,7 @@ MonoBehaviour:
   indicesMatrizGiro: 
   vertices: []
   n: 0
-  tipo_de_configuracion: 2
+  tipo_de_configuracion: 0
 --- !u!4 &802299391
 Transform:
   m_ObjectHideFlags: 0
